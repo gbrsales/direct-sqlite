@@ -1,5 +1,5 @@
 name:               direct-sqlite
-version:            2.3.27
+version:            2.4.0
 synopsis:           Low-level binding to SQLite3.  Includes UTF8 and BLOB support.
 description:        This package is not very different from the other SQLite3 bindings out
                     there, but it fixes a few deficiencies I was finding.  As compared to
@@ -49,6 +49,11 @@ flag json1
   default:     True
   description: Enable json1 extension.
 
+flag rtree
+  default:     True
+  description: Enable rtree extension.
+
+
 library
   exposed-modules:  Database.SQLite3
                     Database.SQLite3.Bindings
@@ -84,6 +89,10 @@ library
 
     if flag(json1)
       cc-options: -DSQLITE_ENABLE_JSON1
+
+    if flag(rtree)
+      cc-options: -DSQLITE_ENABLE_RTREE=1
+
 
 test-suite test
   type:               exitcode-stdio-1.0
